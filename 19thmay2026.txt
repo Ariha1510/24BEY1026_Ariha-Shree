@@ -1,0 +1,105 @@
+show databases;
+use VITCampus;
+select * from worker;
+select first_name,department,salary from worker
+where department='admin' or salary >= 100000;
+select * from worker;
+select first_name, department,salary from worker
+where worker_id not in (1,6,7);
+select * from worker 
+where salary not between 110000 and 300000;
+
+SELECT * FROM worker
+WHERE salary BETWEEN 100000 AND 500000
+AND department NOT IN ('hr','admin');
+SELECT * FROM worker WHERE first_name LIKE '_i__a_';
+
+SELECT * 
+FROM Worker
+WHERE FIRST_NAME LIKE 'V%';
+
+SELECT * 
+FROM Worker
+WHERE FIRST_NAME LIKE '%a';
+
+SELECT * 
+FROM Worker
+WHERE DEPARTMENT LIKE '%Admin%';
+
+SELECT * 
+FROM Worker
+WHERE LAST_NAME LIKE 'S%';
+
+SELECT * 
+FROM Worker
+WHERE FIRST_NAME LIKE '______';
+
+SELECT * 
+FROM Worker
+WHERE FIRST_NAME LIKE 'Vi%';
+select min(salary) from worker where department='admin' and first_name not like 'A%';
+
+SELECT SUM(SALARY) AS Total_Salary
+FROM Worker;
+
+SELECT AVG(SALARY) AS Average_Salary
+FROM Worker;
+
+SELECT MIN(SALARY) AS Minimum_Salary
+FROM Worker;
+
+SELECT MAX(SALARY) AS Maximum_Salary
+FROM Worker;
+
+SELECT COUNT(*) AS Total_Workers
+FROM Worker;
+
+SELECT COUNT(*) AS Admin_Workers
+FROM Worker
+WHERE DEPARTMENT = 'Admin';
+
+SELECT DEPARTMENT, SUM(SALARY) AS Total_Department_Salary
+FROM Worker
+GROUP BY DEPARTMENT;
+
+SELECT DEPARTMENT, AVG(SALARY) AS Average_Salary
+FROM Worker
+GROUP BY DEPARTMENT;
+
+SELECT DEPARTMENT, MAX(SALARY) AS Highest_Salary
+FROM Worker
+GROUP BY DEPARTMENT;
+
+SELECT DEPARTMENT, MIN(SALARY) AS Lowest_Salary
+FROM Worker
+GROUP BY DEPARTMENT;
+
+
+SELECT salary FROM worker
+UNION ALL
+SELECT salary FROM worker;
+
+
+select * from worker;
+
+select worker_id as RollNumber from worker;
+
+select distinct(department) from worker;
+
+SELECT worker_id, first_name,
+CASE
+    WHEN salary > 300000 THEN 'Rich people'
+    WHEN salary >= 100000 and salary <299999 THEN 'Middle'
+    ELSE 'Poor'
+END 
+AS Status
+FROM worker;
+select min(salary) from worker where department='admin';
+select max(salary) from worker where department='admin';
+
+create view minSalaryAdmin as select min(salary) from worker where department='admin';
+
+create view mAxSalaryAdmin as select max(salary) from worker where department='admin';
+
+
+select * from maxsalaryadmin;
