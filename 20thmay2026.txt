@@ -1,0 +1,85 @@
+use vitcampus;
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) unique not null,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+desc persons;
+insert into persons values (101,'Shree','Ariha',null);
+select * from persons;
+
+ALTER TABLE Persons
+ADD UNIQUE (AGE);
+
+ALTER TABLE Persons
+DROP CONSTRAINT Age;
+
+drop table persons;
+CREATE TABLE Persons (
+    Age int not null,
+    CHECK (Age>=18 and age <=23)
+);
+
+insert into persons values (21);
+
+drop table persons;
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Delhi'
+);
+
+desc persons;
+
+create table products(
+pid int primary key,
+pname varchar(100) not null,
+prefNo int not null unique
+);
+
+desc products;
+
+insert into products values(101,"electronics",19929);
+select * from products;
+insert into products values(102,"furniture",19945);
+select * from products;
+
+ALTER TABLE Persons
+ADD CONSTRAINT pk_person PRIMARY KEY (ID);
+
+ALTER TABLE Persons
+DROP PRIMARY KEY;
+
+drop table products;
+create table category(
+cid int primary key,
+cname varchar(100) not null
+);
+
+insert into category values (101, 'electronics'), (102, 'Home App');
+select * from category;
+drop table products;
+CREATE TABLE products (
+pid int primary key,
+pname varchar (100) NOT NULL,
+cid int,
+ foreign key (cid) references category(cid)
+ );
+desc products;
+insert into products values (501, 'HP Laptop', 101);
+insert into products values (502, 'Wooden cub', 102);
+insert into products values (503, 'Power Bank', 103);
+
+select * from products;
+
+delete from category where cid=101;
+UPDATE Products
+SET pname = 'Samsung Power Bank'
+WHERE pid = 501;
+
+INSERT INTO Products VALUES (504, 'Power Bank Samsung', 101);
+
+SELECT * FROM Products;
