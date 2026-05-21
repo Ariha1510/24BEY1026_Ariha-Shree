@@ -1,0 +1,109 @@
+use vitcampus;
+select * from category;
+drop table products;
+CREATE TABLE products (
+    pid INT PRIMARY KEY,
+    pname VARCHAR(100) NOT NULL,
+    cid INT,
+    FOREIGN KEY (cid)
+    REFERENCES category(cid)
+    ON DELETE CASCADE
+);
+DESC products;
+
+INSERT INTO products VALUES (501, 'HP Laptop', 101);
+INSERT INTO products VALUES (502, 'Wooden Cup', 102);
+
+SELECT * FROM products;
+DELETE FROM category
+WHERE cid = 101;
+UPDATE products
+SET pname = 'Samsung Power Bank'
+WHERE pid = 503;
+INSERT INTO products VALUES (504, 'Power Bank Samsung', 103);
+
+SELECT * FROM products;
+drop table products;
+CREATE TABLE products (
+    pid INT PRIMARY KEY,
+    pname VARCHAR(100) NOT NULL,
+    cid INT,
+    FOREIGN KEY (cid)
+    REFERENCES category(cid)
+    ON UPDATE CASCADE
+);
+DESC products;
+
+INSERT INTO category VALUES
+(101, 'Electronics');
+
+INSERT INTO products VALUES
+(501, 'HP Laptop', 101);
+
+SELECT * FROM products;
+
+UPDATE category
+SET cid = 112
+WHERE cid = 101;
+
+select * from worker;
+select first_name, department, salary from worker
+where department='admin';
+select first_name, department, salary from worker
+where department='admin' order by salary asc;
+
+select count(worker_id) from worker where department='admin';
+select count(worker_id) from worker where department='admin'or department='hr';
+select department, count(department) from worker
+group by department;
+select department, count(department) from worker
+group by department order by department asc;
+
+SELECT DEPARTMENT,
+       SUM(SALARY) AS TOTAL_SALARY
+FROM Worker
+GROUP BY DEPARTMENT;
+
+select department, count(department) from worker
+group by department having count(department) >=3 order by department asc;
+
+SELECT department, SUM(salary) AS Total_Salary
+FROM worker
+GROUP BY department
+HAVING SUM(salary) < 300000
+ORDER BY department ASC;
+
+select * from worker limit 2 offset 3;
+
+create table toppers(id int);
+select * from toppers;
+insert into toppers values(5);
+
+SELECT first_name, department
+FROM worker
+WHERE worker_id IN (
+    SELECT id
+    FROM toppers
+)
+LIMIT 2 OFFSET 0;
+
+SELECT department, SUM(salary)
+FROM worker
+GROUP BY department
+ORDER BY SUM(salary) ASC
+LIMIT 2;
+select first_name, department, salary from worker
+where department = 'admin' order by salary desc 
+limit 1 offset 1;
+
+select first_name, department, salary
+from worker w1
+where salary = (
+    select distinct salary
+    from worker w2
+    where w1.department = w2.department
+    order by salary desc
+    limit 1 offset 1
+);
+
+select department,max(salary) from worker group by department;
